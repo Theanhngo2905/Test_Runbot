@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="hr_appraisal_result_view_tree" model="ir.ui.view">
+		<field name="name">type.book.tree</field>
+		<field name="model">type.book</field>
+		<field name="arch" type="xml">
+			<tree editable="bottom">
+				<field name="sequence" widget="handle" />
+				<field name="name" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_type_book" model="ir.actions.act_window">
+		<field name="name">Type Book</field>
+		<field name="res_model">type.book</field>
+		<field name="view_mode">tree</field>
+		<field name="groups_id" eval="[(4, ref('viin_library_management.library_group_manager'))]"/>
+	</record>
+
+	<!--Menu-->
+	<menuitem id="menu_type_book"
+		name="Type Book"
+		action="action_type_book"
+		parent="book_config_menu"
+		sequence="10" />
+
+</odoo>

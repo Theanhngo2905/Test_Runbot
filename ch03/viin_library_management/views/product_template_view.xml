@@ -1,0 +1,110 @@
+<odoo>
+
+	<record id="product_template_form_view" model="ir.ui.view">
+		<field name="name">product.template.library.form.inherit</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="product.product_template_form_view" />
+		<field name="arch" type="xml">
+			<xpath expr="//page[@name='general_information']" position="after">
+				<page string="Library" name="library" attrs="{'invisible': [('detailed_type', 'not in', ['book'])]}">
+					<group>
+						<group>
+							<field name="date_published" />
+							<field name="publisher_id" />
+							<field name="type_book_ids" widget="many2many_tags" />
+							<field name="description" />
+						</group>
+						<field name="author_ids" />
+					</group>
+				</page>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="book_product_template_search_view" model="ir.ui.view">
+		<field name="name">product.template.search</field>
+		<field name="model">product.template</field>
+		<field name="arch" type="xml">
+			<search string="Product">
+				<filter string="Book" name="ftr_book" domain="[('detailed_type', '=', 'book')]" />
+				<field name="name" string="Product"
+					filter_domain="['|', '|', '|', ('default_code', 'ilike', self), ('product_variant_ids.default_code', 'ilike', self),('name', 'ilike', self), ('barcode', 'ilike', self)]" />
+				<field name="categ_id" filter_domain="[('categ_id', 'child_of', raw_value)]" />
+				<separator />
+				<filter string="Services" name="services" domain="[('type','=','service')]" />
+				<filter string="Products" name="consumable" domain="[('type', 'in', ['consu', 'product'])]" />
+				<separator />
+				<filter string="Can be Sold" name="filter_to_sell" domain="[('sale_ok','=',True)]" />
+				<filter string="Can be Purchased" name="filter_to_purchase" domain="[('purchase_ok', '=', True)]" />
+				<separator />
+				<field string="Attributes" name="attribute_line_ids" groups="product.group_product_variant" />
+				<field name="pricelist_id" context="{'pricelist': self}" filter_domain="[]"
+					groups="product.group_product_pricelist" />
+				<filter invisible="1" string="Late Activities" name="activities_overdue"
+					domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+					help="Show all records which has next action date is before today" />
+				<filter invisible="1" string="Today Activities" name="activities_today"
+					domain="[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]" />
+				<filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+					domain="[('my_activity_date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))
+                    ]" />
+				<separator />
+				<filter string="Favorites" name="favorites" domain="[('priority','=','1')]" />
+				<separator />
+				<filter string="Warnings" name="activities_exception"
+					domain="[('activity_exception_decoration', '!=', False)]" />
+				<separator />
+				<filter string="Archived" name="inactive" domain="[('active','=',False)]" />
+				<group expand="1" string="Group By">
+					<filter string="Product Type" name="type" context="{'group_by':'type'}" />
+					<filter string="Product Category" name="categ_id" context="{'group_by':'categ_id'}" />
+				</group>
+				<searchpanel>
+					<field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1" />
+					<field name="type_book_ids" icon="fa-users" select="multi" />
+				</searchpanel>
+			</search>
+		</field>
+	</record>
+
+	<record id="book_product_template_kanban_view" model="ir.ui.view">
+		<field name="name">product.template.kanban.view</field>
+		<field name="model">product.template</field>
+		<field name="type">kanban</field>
+		<field name="inherit_id" ref="product.product_template_kanban_view" />
+		<field name="arch" type="xml">
+			<xpath expr="//kanban" position="inside">
+				<field name="date_published" />
+				<field name="type" />
+			</xpath>
+			<xpath expr="//div[@name='product_lst_price']" position="after">
+				<div>
+					<field name="date_published" />
+				</div>
+				<div>
+					<field name="publisher_id" />
+				</div>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="product_book_template_action" model="ir.actions.act_window">
+		<field name="name">Products</field>
+		<field name="res_model">product.template</field>
+		<field name="view_mode">kanban,tree,form</field>
+		<field name="view_ids"
+			eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('book_product_template_kanban_view')})]" />
+		<field name="context">{
+			'default_detailed_type': 'book',
+			'search_default_ftr_book': 1}
+		</field>
+		<field name="search_view_id" ref="book_product_template_search_view" />
+	</record>
+
+	<menuitem id="products_menu" name="Products" parent="viin_library_management.library_root_menu" sequence="5" />
+
+	<menuitem id="product_template_menu" name="Products" parent="viin_library_management.products_menu"
+		sequence="1" action="viin_library_management.product_book_template_action" />
+
+</odoo>

@@ -1,0 +1,31 @@
+<templates>
+
+	<div t-name="viin_rental_stock.qtyRentConfigAtDate">
+		<div>
+			<a tabindex="0"
+				t-attf-class="fa fa-area-chart {{ !widget.data.will_be_fulfilled ? 'text-danger' : 'text-primary' }}" />
+		</div>
+	</div>
+
+	<div t-name="viin_rental_stock.QtyConfigDetailPopOver">
+		<table class="table table-borderless table-sm">
+			<tbody>
+				<t>
+					<tr>
+						<td>
+							<strong>Available</strong>
+							<br />
+							<small>Maximum available quantity in time period</small>
+						</td>
+						<td>
+							<b t-esc='data.qty_rental_available_during_period'
+								t-att-class="!data.will_be_fulfilled ? 'text-danger': ''" />
+							<t t-esc='data.product_uom_id.data.display_name' />
+						</td>
+					</tr>
+				</t>
+			</tbody>
+		</table>
+	</div>
+
+</templates>

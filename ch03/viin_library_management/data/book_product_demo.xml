@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+    	<record id="product_product_40000" model="product.product">
+            <field name="name"> Nhà Giả Kim</field>
+            <field name="standard_price">800.0</field>
+            <field name="list_price">320.0</field>
+            <field name="detailed_type">book</field>
+            <field name="default_code">B-COM07</field>
+            <field name="image_1920" type="base64" file="viin_library_management/static/img/nhagiakim.png"/>
+        </record>
+
+         <record id="product_product_401" model="product.product">
+            <field name="name">Đắc Nhân Tâm</field>
+            <field name="list_price">400.0</field>
+            <field name="standard_price">400.0</field>
+            <field name="detailed_type">book</field>
+            <field name="default_code">B-DNT01</field>
+             <field name="image_1920" type="base64" file="viin_library_management/static/img/dacnhantam.png"/>
+        </record>
+
+       <record id="product_product_402" model="product.product">
+            <field name="name">Dạy Con Làm Giàu</field>
+            <field name="list_price">400.0</field>
+            <field name="standard_price">400.0</field>
+            <field name="detailed_type">book</field>
+            <field name="default_code">B-DNT01</field>
+             <field name="image_1920" type="base64" file="viin_library_management/static/img/dayconlamgiau.png"/>
+        </record>
+
+    </data>
+</odoo>
