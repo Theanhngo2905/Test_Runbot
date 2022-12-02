@@ -1,0 +1,207 @@
+<odoo>
+
+<!-- 	<data noupdate="1">
+		<function name="write" model="ir.model.data">
+			<function name="search" model="ir.model.data">
+				<value eval="[('module', '=', 'viin_rental_management'), ('name', 'in', ['product_rent_1', 'product_rent_2'])]" />
+			</function>
+			<value eval="{'noupdate': False}" />
+		</function>
+
+		<record id="viin_rental_management.product_rent_1" model="product.product">
+			<field name="type">product</field>
+		</record>
+
+		<record id="viin_rental_management.product_rent_2" model="product.product">
+			<field name="type">product</field>
+		</record>
+
+		<function name="write" model="ir.model.data">
+			<function name="search" model="ir.model.data">
+				<value eval="[('module', '=', 'viin_rental_management'), ('name', 'in', ['product_rent_1', 'product_rent_2'])]" />
+			</function>
+			<value eval="{'noupdate': True}" />
+		</function>
+	</data> -->
+
+	<data noupdate="1">
+		<!-- Product Rental Demo. -->
+		<record id="product_rent_3" model="product.product">
+			<field name="name">Car</field>
+			<field name="type">product</field>
+			<field name="can_be_rent" eval="True" />
+			<field name="sale_ok" eval="True" />
+			<field name="purchase_ok" eval="True" />
+			<field name="categ_id" ref="viin_rental_management.product_category_rentable" />
+			<field name="uom_id" ref="uom.product_uom_unit" />
+			<field name="uom_po_id" ref="uom.product_uom_unit" />
+			<field name="default_code">RENT003</field>
+			<field name="image_1920" type="base64" file="viin_rental_stock/static/img/car.jpg" />
+			<field name="rental_pricing_ids" eval="[
+					(0, 0, {
+                         'unit': 'hour',
+                         'price': 10,
+		            }),
+					(0, 0, {
+					     'unit': 'day',
+					     'price': 120,
+					}),
+					(0, 0, {
+		                 'unit': 'month',
+		                 'price': 2000,
+		            }),
+		            (0, 0, {
+		                 'unit': 'year',
+		                 'price': 10000,
+		            }),
+				]" />
+		</record>
+
+		<record id="product_rent_4" model="product.product">
+			<field name="default_code">RENT004</field>
+			<field name="name">Motorcycle</field>
+			<field name="detailed_type">product</field>
+			<field name="can_be_rent" eval="True" />
+			<field name="sale_ok" eval="True" />
+			<field name="purchase_ok" eval="True" />
+			<field name="categ_id" ref="viin_rental_management.product_category_rentable" />
+			<field name="lst_price">1000.0</field>
+			<field name="standard_price">700.0</field>
+			<field name="weight">100.0</field>
+			<field name="tracking">serial</field>
+			<field name="uom_id" ref="uom.product_uom_unit" />
+			<field name="uom_po_id" ref="uom.product_uom_unit" />
+			<field name="image_1920" type="base64" file="viin_rental_stock/static/img/motorcycle.jpg" />
+		</record>
+	
+		<record id="product_rent_4_lot_serial_1" model="stock.production.lot">
+			<field name="name">MT-000001</field>
+			<field name="product_id" ref="viin_rental_stock.product_rent_4" />
+			<field name="company_id" ref="base.main_company" />
+		</record>
+
+		<record id="product_rent_4_lot_serial_2" model="stock.production.lot">
+			<field name="name">MT-000002</field>
+			<field name="product_id" ref="viin_rental_stock.product_rent_4" />
+			<field name="company_id" ref="base.main_company" />
+		</record>
+
+		<record id="product_rent_4_lot_serial_3" model="stock.production.lot">
+			<field name="name">MT-000003</field>
+			<field name="product_id" ref="viin_rental_stock.product_rent_4" />
+			<field name="company_id" ref="base.main_company" />
+		</record>
+
+		<record id="product_rent_4_lot_serial_4" model="stock.production.lot">
+			<field name="name">MT-000004</field>
+			<field name="product_id" ref="viin_rental_stock.product_rent_4" />
+			<field name="company_id" ref="base.main_company" />
+		</record>
+
+		<record id="product_rent_4_lot_serial_5" model="stock.production.lot">
+			<field name="name">MT-000005</field>
+			<field name="product_id" ref="viin_rental_stock.product_rent_4" />
+			<field name="company_id" ref="base.main_company" />
+		</record>
+
+
+		<record id="stock_quant_lot_serial_1" model="stock.quant">
+			<field name="product_id" ref="viin_rental_stock.product_rent_4" />
+			<field name="inventory_quantity">1.0</field>
+			<field name="location_id" ref="stock.stock_location_stock" />
+			<field name="lot_id" ref="product_rent_4_lot_serial_1" />
+		</record>
+
+		<record id="stock_quant_lot_serial_2" model="stock.quant">
+			<field name="product_id" ref="viin_rental_stock.product_rent_4" />
+			<field name="inventory_quantity">1.0</field>
+			<field name="location_id" ref="stock.stock_location_stock" />
+			<field name="lot_id" ref="product_rent_4_lot_serial_2" />
+		</record>
+	
+		<record id="stock_quant_lot_serial_3" model="stock.quant">
+			<field name="product_id" ref="viin_rental_stock.product_rent_4" />
+			<field name="inventory_quantity">1.0</field>
+			<field name="location_id" ref="stock.stock_location_stock" />
+			<field name="lot_id" ref="product_rent_4_lot_serial_3" />
+		</record>
+	
+		<record id="stock_quant_lot_serial_4" model="stock.quant">
+			<field name="product_id" ref="viin_rental_stock.product_rent_4" />
+			<field name="inventory_quantity">1.0</field>
+			<field name="location_id" ref="stock.stock_location_stock" />
+			<field name="lot_id" ref="product_rent_4_lot_serial_4" />
+		</record>
+	
+		<record id="stock_quant_lot_serial_5" model="stock.quant">
+			<field name="product_id" ref="viin_rental_stock.product_rent_4" />
+			<field name="inventory_quantity">1.0</field>
+			<field name="location_id" ref="stock.stock_location_stock" />
+			<field name="lot_id" ref="product_rent_4_lot_serial_5" />
+		</record>
+
+		<function model="stock.quant" name="action_apply_inventory">
+			<function eval="[[('id', 'in', (ref('stock_quant_lot_serial_1'),
+	                                      ref('stock_quant_lot_serial_2'),
+	                                      ref('stock_quant_lot_serial_3'),
+	                                      ref('stock_quant_lot_serial_4'),
+	                                      ref('stock_quant_lot_serial_5'),
+                                      ))]]"
+				model="stock.quant" name="search" />
+		</function>
+
+		<!-- Product Price List -->
+		<record id="product_pricelist_item_9" model="product.pricelist.item">
+			<field name="pricelist_id" ref="product.list0" />
+			<field name="product_tmpl_id"
+				eval="obj().env.ref('viin_rental_stock.product_rent_3').product_tmpl_id.id"
+				model="product.template" />
+			<field name="product_id" ref="viin_rental_stock.product_rent_3" />
+			<field name="min_quantity">1</field>
+			<field name="applied_on">1_product</field>
+			<field name="min_duration">1</field>
+			<field name="duration_uom">hours</field>
+			<field name="fixed_price">100</field>
+		</record>
+
+		<record id="product_pricelist_item_10" model="product.pricelist.item">
+			<field name="pricelist_id" ref="product.list0" />
+			<field name="product_tmpl_id"
+				eval="obj().env.ref('viin_rental_stock.product_rent_3').product_tmpl_id.id"
+				model="product.template" />
+			<field name="product_id" ref="viin_rental_stock.product_rent_3" />
+			<field name="min_quantity">1</field>
+			<field name="applied_on">1_product</field>
+			<field name="min_duration">1</field>
+			<field name="duration_uom">days</field>
+			<field name="fixed_price">1000</field>
+		</record>
+
+		<record id="product_pricelist_item_11" model="product.pricelist.item">
+			<field name="pricelist_id" ref="product.list0" />
+			<field name="product_tmpl_id"
+				eval="obj().env.ref('viin_rental_stock.product_rent_3').product_tmpl_id.id"
+				model="product.template" />
+			<field name="product_id" ref="viin_rental_stock.product_rent_3" />
+			<field name="min_quantity">1</field>
+			<field name="applied_on">1_product</field>
+			<field name="min_duration">1</field>
+			<field name="duration_uom">months</field>
+			<field name="fixed_price">5000</field>
+		</record>
+
+		<record id="product_pricelist_item_12" model="product.pricelist.item">
+			<field name="pricelist_id" ref="product.list0" />
+			<field name="product_tmpl_id"
+				eval="obj().env.ref('viin_rental_stock.product_rent_3').product_tmpl_id.id"
+				model="product.template" />
+			<field name="product_id" ref="viin_rental_stock.product_rent_3" />
+			<field name="min_quantity">1</field>
+			<field name="applied_on">1_product</field>
+			<field name="min_duration">1</field>
+			<field name="duration_uom">years</field>
+			<field name="fixed_price">10000</field>
+		</record>
+	</data>
+
+</odoo>
