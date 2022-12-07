@@ -1,0 +1,17 @@
+<odoo>
+
+	<data noupdate="1">
+		<function model="res.company" name="create_missing_rental_location" />
+
+	<!-- create xml ids for demo data that are widely used in tests or in other codes, for more convenience -->
+	<function model="ir.model.data" name="_update_xmlids">
+		<value model="base"
+			eval="[{
+                'xml_id': 'viin_rental_stock.stock_location_rental',
+                'record': obj().env.ref('base.main_company').rental_location_id,
+                'noupdate': True,
+            }]" />
+	</function>
+	</data>
+
+</odoo>

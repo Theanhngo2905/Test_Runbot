@@ -1,21 +1,23 @@
-from odoo import fields, models
+from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 
-class Book(models.Model):
-    """
-    Describes a Book catalogue.
-    """
-    _name = "library.book"
-    _description = "Book"
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
 
-    name = fields.Char("Title", required=True)
+
+    detailed_type = fields.Selection(selection_add=[
+        ('book', 'Book')
+        ], tracking=True, ondelete={'book': 'set consu'})
+    type = fields.Selection(selection_add=[
+        ('book', 'Book')
+    ], ondelete={'book': 'set consu'})
     isbn = fields.Char("ISBN")
-    active = fields.Boolean("Active?", default=True)
-    date_published = fields.Date()
-    image = fields.Binary("Cover")
+    date_published = fields.Date(string='Date Published')
     publisher_id = fields.Many2one("res.partner", string="Publisher")
     author_ids = fields.Many2many("res.partner", string="Authors")
+    type_book_ids = fields.Many2many("type.book", string="Type Book")
+    description = fields.Text(string='Description')
 
     def _check_isbn(self):
         self.ensure_one()

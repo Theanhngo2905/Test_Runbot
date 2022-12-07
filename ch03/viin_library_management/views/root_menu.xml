@@ -1,0 +1,11 @@
+<odoo>
+
+  <!-- Library App Menu -->
+  <menuitem id="library_root_menu" 
+  web_icon="viin_library_management,static/description/icon.png"
+  name="Library" />
+
+  <menuitem id="book_config_menu" 
+  	name="Configuration"
+	parent="viin_library_management.library_root_menu"/>
+</odoo>
